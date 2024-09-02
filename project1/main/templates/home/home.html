@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel=stylesheet href="{% static  "css/home.css" %}">
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+</div>
+{% endif %}
+<div class ='swr'>
+    <h1>what is new right now : </h1>
+    {% for x in products  %}
+    <a href="{% url 'product' x.id %}"><img src="{{x.img.url}}"  class="sora" ></a>
+    {% endfor %}
+</div>
+{% endblock %}

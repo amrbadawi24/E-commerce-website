@@ -1,0 +1,71 @@
+.welcome-card1 {
+    position: absolute;;
+    top: 0;
+    left: 0;
+    height: 400px;
+    width: 200px; /* default width */
+    background-color: #222529;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    z-index: 1;
+  }
+  .welcome-card1 .card-body1 {
+    padding: 10px;
+  }
+  
+  .welcome-card1 .card-titlee1 {
+    font-weight: bold;
+    color: #f2f2f2;
+    margin-bottom: 10px;
+  }
+  
+  .welcome-card1 .card-text1 {
+    font-size: 16px;
+    color: #f2f2f2;
+}
+  .welcome-card1 .card-text1 a{
+    text-decoration: none;
+    color: #f2f2f2;
+  }
+  .welcome-card1 .card-text1 a:hover{
+    color: deepskyblue;
+    transition-duration: 0.7s;
+  }
+  
+  .ah {
+    color: #f2f2f2;
+  }
+  .about{
+    color:#f2f2f2;
+    font-size: 16px;
+  }
+
+  /* Media queries for different screen sizes */
+  
+  /* For large screens (e.g., 2K) */
+  @media only screen and (min-width: 1920px) {
+  .welcome-card1 {
+      width: 225px; /* Adjust width for large screens */
+    }
+  }
+  
+  /* For medium screens (e.g., Full HD) */
+  @media only screen and (min-width: 1280px) and (max-width: 1919px) {
+  .welcome-card1 {
+      width: 175px; /* Adjust width for medium screens */
+    }
+  }
+  
+  /* For small screens (e.g., HD) */
+  @media only screen and (min-width: 720px) and (max-width: 1279px) {
+  .welcome-card1 {
+      width: 125px; /* Adjust width for small screens */
+    }
+  }
+  
+  /* For extra small screens (e.g., mobile) */
+  @media only screen and (max-width: 719px) {
+  .welcome-card1 {
+      width: 75px; /* Adjust width for extra small screens */
+    }
+  }

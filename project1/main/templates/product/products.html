@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<link rel=stylesheet href="{% static  "css/products.css" %}">
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock  %}
+<h1 class="title ">  this is the list for all Products we have right now  </h1>
+<div class="sort-dropdown">
+  <form>
+    <select name="sort_by" onchange="this.form.submit()">
+      <option value="-created_at" {% if sort_by == "-created_at" %}selected{% endif %}>Newest</option>
+      <option value="price" {% if sort_by == "price" %}selected{% endif %}>Price (Low to High)</option>
+      <option value="-price" {% if sort_by == "-price" %}selected{% endif %}>Price (High to Low)</option>
+      <option value="name" {% if sort_by == "name" %}selected{% endif %}>Alphabetical</option>
+    </select>
+  </form>
+</div>
+<div class="card-container"> <!-- Add a container element -->
+  {% for g in product_list %}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'product' g.id %}">
+            <img src="{{g.img.url}}" class="card-img-top" alt="...">
+          </a>
+      <div class="card-body">
+        <h5 class="card-title">{{g.name}}</h5>
+        <h4>Price: {{ g.price|intcomma }} EGP</h4>
+        <a href="{% url 'product' g.id %}" class="btn">Go NOW</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="paginator">
+{% if product_list.has_previous %}
+  <a href='?page=1' class="on"> First </a>
+  <a href='?page={{product_list.previous_page_number}}' class="on"> Back </a>
+{% endif %}
+
+Page {{product_list.number}}   of    {{product_list.paginator.num_pages}}
+
+{% if product_list.has_next %}
+  <a href='?page={{product_list.next_page_number}}'  class="on" > Next </a>
+  <a href='?page={{product_list.paginator.num_pages}}'  class="on" > Last </a>
+{% endif %}
+</div>
+{% endblock %}

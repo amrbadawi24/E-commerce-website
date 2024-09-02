@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<link rel=stylesheet href="{% static  "css/products.css" %}">
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock  %}
+<h1 class="title "> You Have Searched for {{request.GET.search}}  ...</h1>
+
+<form action="" method="GET">
+  <input type="hidden" placeholder="search"  name="search" value="{{ request.GET.search}}" >
+<label for="min_price">Min price:</label>
+  <input type="number" name="min_price" value="{{ request.GET.min_price|default:0 }}">
+<label for="max_price">Max price:</label>
+  <input type="number" name="max_price" value="{{ request.GET.max_price}}">
+  <button type="submit">Filter</button>
+</form>
+
+<div class="card-container"> <!-- Add a container element -->
+  {% for g in product_list %}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'product' g.id %}">
+            <img src="{{g.img.url}}" class="card-img-top" alt="...">
+          </a>
+      <div class="card-body">
+        <h5 class="card-title">{{g.name}}</h5>
+        <h4>Price: {{g.price|intcomma }} EGP</h4>
+        <a href="{% url 'product' g.id %}" class="btn">Go NOW</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<h1>{{not_found}}</h1>
+
+<div class="paginator">
+{% if product_list.has_previous %}
+  <a href='?page=1' class="on"> First  </a>
+  <a href='?page={{product_list.previous_page_number}}' class="on"> Back </a>
+{% endif %}
+
+Page {{product_list.number}}   of    {{product_list.paginator.num_pages}}
+
+{% if product_list.has_next %}
+  <a href='?page={{product_list.next_page_number}}'  class="on" > Next </a>
+  <a href='?page={{product_list.paginator.num_pages}}'  class="on" > Last </a>
+{% endif %}
+</div>
+{% endblock %}

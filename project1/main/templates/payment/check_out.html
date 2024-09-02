@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock  %}
+<style> 
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+      }
+      
+      .title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px;
+      }
+      
+      .card {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 18rem;
+      }
+      
+      .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      .card-qty {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      .total {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+      }
+      .address {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #666;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .address ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .address li {
+        margin-bottom: 10px;
+      }
+      
+      .address span {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .button {
+        background-color: #222529;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin:20px;
+     }
+
+     .button:hover {
+        background-color: deepskyblue;
+     }
+     a{
+        text-decoration:none;
+     }
+</style>
+{% if product_list %}
+<h1 class="title ">  this is Your Checkout page :</h1>
+<div class="card-container"> 
+  {% for g in product_list %}
+    <div class="card" style="width: 18rem;">
+        <h5 class="card-title">{{g.name}}</h5>
+        <h4>Price: {{ g.price|intcomma }} EGP</h4>
+          {% for key,value in quants.items  %}
+          {% if key == g.id|slugify %}
+          <div class="card-qty"> Quantity : {{value}}</div>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+  <div class="total">total price :  {{total|intcomma}} EGP</div>
+  <div class="address">
+    <ul>
+      <li><span>your address is :</span> {{shipping_address.address1}}</li>
+      <li><span>your country is :</span> {{shipping_address.country}}</li>
+      <li><span>your state is :</span> {{shipping_address.state}}</li>
+      <li><span>your city is :</span> {{shipping_address.city}}</li>
+      <a href="{% url "update_shipping" %}"> <li><span>You can change your address info from here </span> </li></a>
+    </ul>
+  </div>
+  <a href="{% url "billing_info" %}"><button class='button'> Go to Billing  </button></a>
+{% else %}
+{% endif %}
+{% endblock %}

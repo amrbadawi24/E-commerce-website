@@ -1,0 +1,56 @@
+:root{
+    --maincolor:#222529;
+    --font:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+.page{
+    width: 98vw;
+    background-size:cover ;
+    background-attachment: fixed;
+}
+.mainpage{
+    background-color: #f2f2f2;
+    position: relative;
+    bottom: 10px;
+    left: 70px;
+    align-items: center;
+    width: 90vw;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+}
+
+#scrol{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--maincolor);
+    cursor: pointer;
+    position: fixed ;
+    bottom: 10px;
+    right: 10px;
+    color: #f2f2f2;
+}
+#scrol:hover{
+    transition-duration: 0.5s;
+    box-shadow: 3px 3px 5px #222529;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--maincolor);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--maincolor)
+}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock  %}
+<style>
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+      }
+      
+      .table thead th {
+        background-color: #222529;
+        color: #fff;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #222529;
+      }
+      
+      .table tbody tr {
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .table tbody tr:hover {
+        background-color: #f2f2f2;
+      }
+      
+      .table td, .table th {
+        padding: 10px;
+        text-align: left;
+      }
+      
+      .table td:nth-child(1), .table th:nth-child(1) {
+        width: 10%;
+      }
+      
+      .table td:nth-child(2), .table th:nth-child(2) {
+        width: 20%;
+      }
+      
+      .table td:nth-child(3), .table th:nth-child(3) {
+        width: 30%;
+      }
+      
+      .table td:nth-child(4), .table th:nth-child(4) {
+        width: 20%;
+      }
+      
+      .table td:nth-child(5), .table th:nth-child(5) {
+        width: 20%;
+      }
+
+      .table td:nth-child(6), .table th:nth-child(6) {
+        width: 20%;
+      }
+      a{
+        text-decoration:none;
+        color:deepskyblue;
+      }
+</style>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">order id </th>
+        <th scope="col">User</th>
+        <th scope="col">Full name</th>
+        <th scope="col">Price</th>
+        <th scope="col">date</th>
+        <th scope="col">Shipped</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for g in orders %}
+      <tr>
+        <td><a href ="{% url "order_page" g.id %}">{{g.id}}</a></td>
+        <td>{{g.user}}</td>
+        <td>{{g.full_name}}</td>
+        <td>{{g.amount_paid}}</td>
+        <td>{{g.date_orderd}}</td>
+        <td>{{g.shipped}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}

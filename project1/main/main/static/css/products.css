@@ -1,0 +1,194 @@
+:root{
+  --maincolor:#222529;
+}
+.title{
+  font-weight: bold;
+  font-size: large;
+  padding: 10px;
+  border: 2px solid;
+  width: 370px;
+}
+/* Style the sorting links */
+.sort-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #337ab7;
+}
+
+.sort-link:hover {
+  color: #23527c;
+}
+
+/* Style the dropdown menu */
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.sort-dropdown select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.sort-dropdown select:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the active sorting option */
+.active-sort {
+  font-weight: bold;
+  color: #23527c;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--maincolor);
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  /* Add the following lines to make the cards equal in size */
+  height: 430px; /* Set a fixed height for the cards */
+  width: 250px; /* Set a fixed width for the cards */
+  overflow: hidden; /* Add this line to prevent the content from going out */
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the image */
+  transition-duration: 0.5s;
+}
+.card-img-top:hover{
+  width: 100%;
+  height: 275px;
+  transition-duration: 0.8s;
+}
+.card-title{
+  font-size: 16px;
+}
+.card-qty {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-qty:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--maincolor); /* blue color */
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.btn{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--maincolor);
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition-duration: 0.3s;
+}
+.btn:hover {
+  transition-duration: 0.7s;
+  color: 222529;
+  background-color: #f2f2f2; 
+}
+.total {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: right;
+  font-size: 16px;;
+}
+
+.total span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.total button.btn {
+  margin-top: 10px;
+  background-color: #222529;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.total button.btn:hover {
+  background-color: #333;
+}
+.btn1{
+  width: 100%;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color:#b92727;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition-duration: 0.3s;
+}
+.btn1:hover{
+  color: #962929;
+}
+
+.paginator{
+  margin: 25px;
+}
+.on{
+  margin-left: 15px;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+  /* Media queries for different screen sizes */
+
+   @media only screen and (min-width: 1920px) {
+    .card-container {
+       grid-template-columns: repeat(4, 1fr);
+     }
+   }
+   
+   /* For medium screens (e.g., Full HD) */
+   @media only screen and (min-width: 1280px) and (max-width: 1919px) {
+    .card-container {
+       grid-template-columns: repeat(3, 1fr);
+     }
+   }
+   
+   /* For small screens (e.g., HD) */
+   @media only screen and (min-width: 720px) and (max-width: 1279px) {
+    .card-container {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
+   
+   /* For extra small screens (e.g., mobile) */
+   @media only screen and (max-width: 719px) {
+    .card-container {
+       grid-template-columns: repeat(1, 1fr);
+     }
+   }

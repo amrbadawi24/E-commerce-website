@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock %}
+
+<div class="card">
+    <div class="image-section">
+        <img src="{{ product_list.img.url }}" alt="product Image">
+    </div>
+    <div class="header-section">
+        <h2>{{ product_list.name }}</h2>
+    </div>
+    <div class="description-section">
+        <p>{{ product_list.content }}</p>
+    </div>
+    <div class="details-section">
+        <ul>
+            <li>Price: {{ product_list.price|intcomma }} EGP</li>
+        </ul>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 col-form-label">Quantity</label>
+        <div class="col-md-4">
+            <button type="button" class="btn2" id="minus-btn">-</button>
+            <input type="number"  class="qty"id="qty-product" value="1" min="1" max="10" readonly>
+            <button type="button" class="btn3" id="plus-btn">+</button>
+        </div>
+    </div>
+    <button type="button" class="btn" value="{{ product_list.id }}" id="add-cart">Add to cart</button>
+    <div class="footer-section">
+        <p>Created on {{ product_list.created_at }}</p>
+    </div>
+    <div class="comments">
+        <h1>Comments section</h1>
+        <form method="POST">
+            {% csrf_token %}
+            Add your comment:
+            <div class="inp">{{ comment_form }}</div>
+            <input type="Submit" value="Submit">
+        </form>
+        {% for comment in comment_list %}
+        <div class="comment">
+            <div class="nd">{{ comment.user.username }} ({{ comment.date_add }})</div>
+            <div class="cbody">{{ comment.body }}</div>
+            <hr>
+        </div>
+        {% empty %}
+        <h3>No comments yet. Type one right now!</h3>
+        {% endfor %}
+    </div>
+</div>
+<script>
+var qtyInput = document.getElementById('qty-product');
+var minusBtn = document.getElementById('minus-btn');
+var plusBtn = document.getElementById('plus-btn');
+
+minusBtn.onclick = function() {
+    var currentValue = parseInt(qtyInput.value);
+    if (currentValue > 1) {
+        qtyInput.value = currentValue - 1;
+    }
+}
+
+plusBtn.onclick = function() {
+    var currentValue = parseInt(qtyInput.value);
+    if (currentValue < 10) {
+        qtyInput.value = currentValue + 1;
+    }
+}
+
+var add = document.getElementById('add-cart');
+add.onclick = function(event) {
+    event.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'add_cart' %}',
+        data: {
+            product_id: $('#add-cart').val(),
+            product_qty: $('#qty-product').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json) {
+            location.reload();
+            // document.getElementById('qty-product').textContent = json.cart_num; // Remove this line
+        },
+        error: function(xhr, errmsg, err) {
+            console.log('Error!');
+        }
+    });
+}
+</script>
+{% endblock %}

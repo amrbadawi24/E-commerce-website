@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+  {% block sidebar %}
+    {% include "parts/leftbar.html" %}
+  {% endblock %}
+  <style>
+   .order-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+   .order-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+   .order-details {
+      margin-bottom: 20px;
+    }
+    
+   .order-label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+   .items-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+   .items-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+   .item {
+      width: 40%;
+      margin: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+   .item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px; /* added border radius to give a rounded corner effect */
+      margin-bottom: 10px;
+    }
+    
+   .item-details {
+      padding: 10px;
+    }
+    
+   .item-details h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+   .item-details p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    /* Add this CSS to make the shipping address display properly */
+   .order-details p span.order-label {
+      display: inline-block;
+      width: 150px;
+    }
+    
+   .order-details p {
+      margin-bottom: 5px;
+    }
+    .button {
+      background-color: #222529;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin:10px;
+   }
+
+   .button:hover {
+      background-color: deepskyblue;
+   }
+   .button1 {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin:10px;
+ }
+
+ .button1:hover {
+    background-color: #8b0000;
+ }
+ .button2 {
+  background-color: black;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin:10px;
+}
+h5{
+  color: #8b0000;
+  font-size:22px
+}
+  </style>
+  <div class="order-container">
+    <h1 class="order-title">This is your Order:</h1>
+    <div class="order-details">
+      <p>
+        <span class="order-label">Order ID:</span> {{ orders.id }}
+      </p>
+      <p>
+        <span class="order-label">User:</span> {{ orders.user }}
+      </p>
+      <p>
+        <span class="order-label">Full Name:</span> {{ orders.full_name }}
+      </p>
+      <p>
+        <span class="order-label">Shipping Address:</span>
+        <br>
+        {{ orders.shipping_address | linebreaksbr}}
+      </p>
+      <p>
+        <span class="order-label">Amount Paid:</span> {{ orders.amount_paid |intcomma }}
+      </p>
+      <p>
+        <span class="order-label">Date Ordered:</span> {{ orders.date_orderd }}
+      </p>
+      <p>
+        <span class="order-label">Shipped:</span> {{ orders.shipped }}
+      </p>
+    </div>
+    <h1 class="items-title">This is the items That you bought in this order:</h1>
+    <div class="items-list">
+      {% for g in items %}
+        <div class="item">
+          <div class="item-details">
+            <h2>{{g.product.name}}</h2>
+            <p>Quantity: {{g.quantity}}</p>
+            <p>Price: {{g.price|intcomma}}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+
+  {% if user.is_superuser %}
+      {% if orders.shipped == False %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <button type="submit" class="button">Mark as Shipped</button>
+          </form>
+          <form action="" method="post" name='delete'>
+            {% csrf_token %}
+            <button type="submit" class="button1" name="delete_order">Delete Order</button>
+        </form>
+      {% else %}
+        <form action="" method="post">
+          {% csrf_token %}
+           <button type="submit" class="button">Mark as un Shipped</button>
+          </form>
+      {% endif %}
+    {% else %}
+    {% if orders.date_orderd > one_hour_ago %}
+    <form action="" method="post" name='delete'>
+      {% csrf_token %}
+      <h5>You only have One hour from {{orders.date_orderd}} To Cancel This order, if it passed you will need to contact us</h5>
+      <button type="submit" class="button1" name="delete_order">Cancel Order</button>
+    </form>
+    <p id="time-left"></p>
+  {% else %}
+  <h3>One hour passed on it's ceration order can't be Canceled except if you contact Gmail:amrbadawi244@gmail.com </h3>
+  <button type="submit" class="button2" name="delete_order" disabeld>Cancel</button>
+  {% endif %}
+  </div>
+    {% endif %}
+
+{% endblock %}

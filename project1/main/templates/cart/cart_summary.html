@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<link rel=stylesheet href="{% static  "css/products.css" %}">
+{% block sidebar %}
+{% include "parts/leftbar.html" %}
+{% endblock  %}
+{% if product_list %}
+<h1 class="title ">  this is Your personal Cart :</h1>
+<div class="card-container"> 
+  {% for g in product_list %}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'product' g.id %}">
+            <img src="{{g.img.url}}" class="card-img-top" alt="...">
+          </a>
+      <div class="card-body">
+        <h5 class="card-title">{{g.name}}</h5>
+        <h4>Price: {{ g.price|intcomma }} EGP</h4>
+          {% for key,value in quants.items  %}
+          {% if key == g.id|slugify %}
+          <div class="card-qty"> Quantity : {{value}}</div>
+          {% endif %}
+          {% endfor %}
+        <a class="btn1" id='delete-product' data-index="{{ g.id }}"> Remove </a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="total">Cart summary total :  {{total|intcomma}} EGP  <a href="{% url "check_out" %}"><button class='btn'> Check out </button> </div></a>
+{% else %}
+<h1 class="title ">  there is nothing in your Cart ...</h1>
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function() {
+    $(document).on('click', '#delete-product', function(event) {
+      event.preventDefault();
+      var product_id = $(this).data('index');
+      $.ajax({
+        type: 'POST',
+        url: '{% url 'delete_cart' %}',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+        success: function(json) {
+          location.reload();
+        },
+        error: function(xhr, errmsg, err) {
+          console.log('Error!');
+        }
+      });
+    });
+  });
+</script>
+
+
+
+{% endblock %}

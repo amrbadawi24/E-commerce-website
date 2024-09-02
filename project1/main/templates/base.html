@@ -1,0 +1,24 @@
+<head>
+{% load static %}
+<link rel=stylesheet href="{% static  "css/base.css" %}">
+<title>Electronic store </title>
+</head>
+<body>
+{% include "parts/navbar.html" %}
+<div class="page">
+<div class="mainpage">
+{% block content %}
+{% block sidebar %}
+{% endblock  %}
+{% endblock %}
+</div>
+<button id="scrol">^</button>
+</div>
+{% include "parts/footer.html" %}
+<script>
+    document.getElementById('scrol').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</body>

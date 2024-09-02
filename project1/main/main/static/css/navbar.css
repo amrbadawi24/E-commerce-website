@@ -1,0 +1,117 @@
+:root {
+    --maincolor: #222529;
+    --font: 'IBM Plex Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  body {
+    margin: 0px;
+  }
+  .nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    width: 98.2.5vw;
+    background-color: var(--maincolor);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: 0px #f2f2f2 solid;
+  }
+  
+  .nav1 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .nav2 {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .nav3{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  .logo {
+    height: 40px;
+    margin-right: 20px;
+  }
+  
+  .one, .logout, .login, .signup {
+    margin-left: 20px;
+    text-decoration: none;
+    color: rgb(213, 213, 213);
+    transition-duration: 0.7s;
+
+  }
+  .one:hover ,.login:hover,.logout:hover,.signup:hover{
+    color: deepskyblue;
+    scale: 1.1;
+    transition-duration: 0.8s;
+  }
+  
+  .user{
+    width: 40px;
+    height: 35px;
+    margin-left: 20px;
+    cursor: pointer;
+    color: #f2f2f2;
+    transition-duration: 0.5s;
+  }
+  
+  .user:hover {
+    transform: scale(1.1);
+    color: deepskyblue;
+    transition-duration: 0.8s;
+  }
+  .cart{
+    width: 80px;
+    height: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #222529;
+    text-decoration: none;
+    transition-duration: 0.5s;
+    border-radius: 5px;
+    font-size: 16;
+  }
+  .cart:hover {
+    transform: scale(1.1);
+    color: deepskyblue;
+    transition-duration: 0.8s;
+  }
+  #cart_number{
+    font-weight: bold;
+    font-size: 16;
+  }
+  
+  .dwr {
+    margin-left: 20px;
+  }
+  
+  .dwr input[type="text"] {
+    padding: 10px;
+    width: 150px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition-duration: 0.3s;
+  }
+
+  .dwr input:hover{
+    transition-duration: 0.7s;
+    width: 300px;
+    box-shadow: 5px 5px 7px var(--maincolor);
+  }
+  
+  .dwr button[type="submit"] {
+    padding: 7px;
+    width: 70px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--maincolor);
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .dwr button[type="submit"]:hover {
+    background-color: var(--maincolor);
+  }
