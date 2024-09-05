@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from cart.cart import Cart
+from cart.views import *
 from django.contrib.auth.models import User
 from .forms import *
 from product.models import product
@@ -72,7 +73,7 @@ def process_order(request):
         
         #create an order
         create_order=order(user=user , full_name=full_name , shipping_address=shipping_adress_of_user , amount_paid=totals)
-        create_order.save()
+        create_order.save()      
         
         #add order items 
         order_id=create_order.pk

@@ -1,99 +1,134 @@
-<style>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
       }
       
       h1 {
-        margin: auto;
-        font-weight: bold;
-        color: #333;
+          margin: auto;
+          font-weight: bold;
+          color: #333;
       }
       
       .input {
-        max-width: 600px;
-        margin: auto;
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin: auto;
+          padding: 20px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
       
       .input ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+          list-style: none;
+          padding: 0;
+          margin: 0;
       }
       
       .input li {
-        color: #red;
-        font-size: 14px;
-        margin-bottom: 10px;
+          color: red;
+          font-size: 14px;
+          margin-bottom: 10px;
       }
       
       .field {
-        margin-bottom: 5px;
+          margin-bottom: 5px;
       }
       
       .field label {
-        display: block;
-        font-weight: bold;
-        color: #333;
+          display: block;
+          font-weight: bold;
+          color: #333;
       }
       
       .field input[type="text"], .field input[type="email"], .field input[type="password"] {
-        width: 100%;
-        height: 30px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+          width: 100%;
+          height: 30px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
       }
       
       .field input[type="text"]:focus, .field input[type="email"]:focus, .field input[type="password"]:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border-color: #aaa;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
       
       .input input[type="submit"] {
-        width: 100%;
-        height: 30px;
-        background-color: #222529;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+          width: 100%;
+          height: 30px;
+          background-color: #222529;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
       }
       
       .input input[type="submit"]:hover {
-        background-color: deepskyblue;
+          background-color: deepskyblue;
       }
-</style>
+      
+      .toggle-password {
+          cursor: pointer;
+      }
+      
+      .toggle-password:hover {
+          color: #337ab7;
+      }
+  </style>
+</head>
+
 {% include "parts/navbar.html" %}
-<h1> Sign up<h1>
+
+<h1> Sign up </h1>
 <form method="POST" class="input">
-    {% csrf_token %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <div class="input">
-        {% for field in form %}
-            <div class="field">
-                {{field.label}}  {{ field }}
-                {% if field.errors %}
-                    <ul>
-                        {% for error in field.errors %}
-                            <li>{{ error|escape }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-            <br>
-        {% endfor %}
-    <br>
-    <input type="submit" value='submit'>
-    </div>
+  {% csrf_token %}
+  {% if messages %}
+      <ul>
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+  <div class="input">
+      {% for field in form %}
+          <div class="field">
+              {{field.label}}  
+              {% if field.name == "password1" or field.name == "password2" %}
+                <div class="input-group">
+                    <input type="{{ field.field.widget.input_type }}" {% if field.field.required %}required{% endif %} name="{{ field.name }}" autocomplete="off" id="{{ field.id_for_label }}">
+                    <span class="input-group-addon">
+                        <i class="fa fa-eye" id="toggle-password-{{ field.name }}" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                  <script>
+                      document.getElementById('toggle-password-{{ field.name }}').addEventListener('click', function() {
+                          var passwordInput = document.getElementById('{{ field.id_for_label }}');
+                          if (passwordInput.type === 'password') {
+                              passwordInput.type = 'text';
+                          } else {
+                              passwordInput.type = 'password';
+                          }
+                      });
+                  </script>
+
+              {% else %}
+                  {{ field }}
+              {% endif %}
+              {% if field.errors %}
+                  <ul>
+                      {% for error in field.errors %}
+                          <li>{{ error|escape }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          </div>
+          <br>
+      {% endfor %}
+  <br>
+  <input type="submit" value='submit'>
+  </div>
 </form>
