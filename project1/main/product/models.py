@@ -15,6 +15,7 @@ class product(models.Model):
     content = models.TextField()
     price = models.DecimalField(max_digits=15, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
+    available = models.BooleanField(default=True)
     category = models.ForeignKey(category, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

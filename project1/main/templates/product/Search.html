@@ -6,6 +6,7 @@
 {% block sidebar %}
 {% include "parts/leftbar.html" %}
 {% endblock  %}
+{%if product_list%}
 <h1 class="title "> You Have Searched for {{request.GET.search}}  ...</h1>
 
 <form action="" method="GET">
@@ -26,13 +27,25 @@
       <div class="card-body">
         <h5 class="card-title">{{g.name}}</h5>
         <h4>Price: {{g.price|intcomma }} EGP</h4>
+        <h3>Available:
+          {% if g.available %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 24px; height: 24px; fill: green; margin-bottom: -5px;">
+                  <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+              </svg>
+          {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 24px; height: 24px; fill: red; margin-bottom: -5px; ">
+                  <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+              </svg>
+          {% endif %}
+      </h3>
         <a href="{% url 'product' g.id %}" class="btn">Go NOW</a>
       </div>
     </div>
   {% endfor %}
 </div>
-
+{%else%}
 <h1>{{not_found}}</h1>
+{%endif%}
 
 <div class="paginator">
 {% if product_list.has_previous %}

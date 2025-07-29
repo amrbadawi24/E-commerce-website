@@ -10,5 +10,7 @@ urlpatterns = [
     path('products/',include('product.urls')),
     path('cart/',include('cart.urls')),
     path('payment/',include('payment.urls')),
+    #Login Goolgle
+    path('accounts/',include('allauth.urls')),
     
 ] + static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)

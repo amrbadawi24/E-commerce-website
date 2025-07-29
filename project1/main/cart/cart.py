@@ -2,8 +2,10 @@ from product.models import product
 
 class Cart:
     def __init__(self, request):
+        # if the user that requested has a seesion select it
         self.session = request.session
         self.session_key = 'cart'
+        # if not creat a new one for him
         if self.session_key not in self.session:
             self.session[self.session_key] = {}
         self.cart = self.session[self.session_key]
@@ -15,8 +17,6 @@ class Cart:
             pass
         else:
             self.session[self.session_key][product_id] = int(product_qty)
-
-            
         self.session.modified = True
         
     def __len__(self):

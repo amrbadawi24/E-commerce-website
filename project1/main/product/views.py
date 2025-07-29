@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.'
+# Create your views here.
 def product_all(request):
     pro = product.objects.all()
     sort_by = request.GET.get('sort_by', '-created_at')
@@ -19,7 +19,7 @@ def product_all(request):
 def product_page(request, pk):
     g = product.objects.get(id=pk)
     c = comments.objects.filter(Id=g).order_by('-date_add')  # Fetch comments for the specific product and order them by date
-
+    
     if request.method == 'POST':
         comment_form = commentForm(request.POST)
         if comment_form.is_valid():
